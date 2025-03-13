@@ -167,6 +167,7 @@ bool YulStack::analyzeParsed(Object& _object)
 		*_object.analysisInfo,
 		m_errorReporter,
 		languageToDialect(m_language, m_evmVersion, m_eofVersion),
+		_object.code()->labels(),
 		{},
 		_object.summarizeStructure()
 	);
@@ -405,7 +406,7 @@ Json YulStack::cfgJson() const
 			keepLiteralAssignments
 		);
 		std::unique_ptr<ControlFlowLiveness> liveness = std::make_unique<ControlFlowLiveness>(*controlFlow);
-		YulControlFlowGraphExporter exporter(*controlFlow, liveness.get());
+		YulControlFlowGraphExporter exporter(_object.code()->labels(), *controlFlow, liveness.get());
 		return exporter.run();
 	};
 
