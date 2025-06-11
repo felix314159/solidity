@@ -427,9 +427,9 @@ void ConstantEvaluator::endVisit(FunctionCall const& _functionCall)
 		case FunctionType::Kind::ERC7201:
 		{
 			solAssert(_functionCall.arguments().size() == 1);
-			auto const* argument = dynamic_cast<Literal const*>(_functionCall.arguments()[0].get());
-			solAssert(argument);
-			ASTString argStringLiteral = argument->valueWithoutUnderscores();
+			auto const* argumentLiteral = dynamic_cast<Literal const*>(_functionCall.arguments()[0].get());
+			solAssert(argumentLiteral);
+			ASTString argStringLiteral = argumentLiteral->valueWithoutUnderscores();
 			auto value =
 				u256(keccak256(h256(u256(keccak256(argStringLiteral)) - 1))) &
 				u256(~0xff)
