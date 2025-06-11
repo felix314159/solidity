@@ -1,10 +1,8 @@
 bytes constant b = "abcdef";
 contract C {
     function f() public pure returns (uint256) {
-        uint256 y = erc7201(b);
-        return y;
+        return erc7201(b);
     }
 }
-// ====
-// stopAfter: analysis
 // ----
+// TypeError 6896: (114-115): Builtin erc7201 only accepts string literals as argument
